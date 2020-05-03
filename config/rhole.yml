@@ -1,0 +1,44 @@
+---
+
+# **************** * *************** * *************** * ***************
+#                           Config Section
+# **************** * *************** * *************** * ***************
+
+# **************** Server Setting ***************
+
+# parameter   : ServerPort
+# description : rocinax rhole accept server port
+# default     : 6470
+ServerPort: 6470
+
+# **************** Directory Setting ***************
+
+# parameter   : TemplateDir
+# description : template file direcotry path
+# default     : /opt/rocinax/rhole/template/
+TemplateDir: /opt/rocinax/rhole/template/
+
+# parameter   : LogDir
+# description : log directory path
+# default     : /opt/rocinax/rhole/logs/
+LogDir: /opt/rocinax/rhole/logs/
+
+# **************** Logger Setting ***************
+
+# parameter   : LogType
+# description : logger log type
+# default     : Stdout
+LogType: File
+
+# parameter   : LogLevel
+# description : logger log level
+# default     : Info
+LogLevel: Info
+
+# **************** * *************** * *************** * ***************
+#                           Rhole Section
+# **************** * *************** * *************** * ***************
+
+Rhole:
+  Dump: true
+

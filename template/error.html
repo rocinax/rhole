@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <meta charset="UTF-8">
+  <title>{{.Error}}</title>
+  <style>
+  html, body, div, span, iframe,
+  h1, h2, h3, h4, h5, h6, p,
+  a,img, dl, dt, dd, ol, ul, li,
+  form, table, tbody, tfoot, thead, tr, th, td,
+  article, canvas, footer, header,
+  menu, nav, section, audio, video {
+    margin: 0px;
+    padding: 0px;
+    border: 0px;
+    font-style:normal;
+    font-weight: normal;
+    font-family: "-apple-system", "Hiragino Kaku Gothic ProN W6", "メイリオ";
+    font-size: 100%;
+    vertical-align: baseline;
+  }
+  article, footer, header, menu, nav, section {
+    display: block;
+  }
+  html{
+    overflow-y: scroll;
+  }
+  input, textarea{
+    margin: 0;
+    padding: 0;
+  }
+  textarea{
+    resize: none;
+  }
+  ul, li{
+    list-style: none;
+  }
+  a{
+    text-decoration: none;
+  }
+  html, body, .wrapper{
+    font-family: "Hiragino Kaku Gothic ProN","メイリオ", sans-serif;
+    height: 100%;
+    width: 100%;
+  }
+  .sorry-container{
+    width: 90%;
+    height: 95%;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    position: absolute;
+    margin: auto;
+    background-color: #FFFFFF;
+    border-radius: 15px;
+  }
+  .sorry-header{
+    text-align: center;
+  }
+  .sorry-image{
+    width: 50%;
+    max-width: 250px;
+  }
+  .sorry-message{
+    color: #800000;
+    font-weight: bold;
+    font-size: 120%;
+    text-align: center;
+    padding: 10px;
+  }
+  .sorry-detail{
+    margin: 10px auto 0px auto;
+    width: 100%;
+    max-width: 600px;
+    font-size: 100%;
+  }
+  .sorry-detail-header{
+    width: 100%;
+  }
+  .sorry-detail-body{
+    width: 100%;
+  }
+  .sorry-detail-header > td{
+    background-color: #800000;
+    color: #FFFFFF;
+    border-radius: 5px;
+  }
+  .sorry-detail-body > td {
+    background-color: #FFFFFF;
+    color: #800000;
+    word-wrap: break-word;
+  }
+  .sorry-detail-header > td, .sorry-detail-body > td {
+    padding: 5px;
+  }
+ .sorry-detail-body > td {
+    padding-bottom: 15px;
+  }
+  .sorry-messanger{
+    font-size: 130%;
+    text-align: center;
+    padding: 10px;
+  }
+  .sorry-footer{
+    text-align: center;
+  }
+  </style>
+</head>
+<body>
+  <section class="wrapper">
+    <section class="sorry-container">
+      <header class="sorry-header">
+        <img class="sorry-image" src="https://logo.rocinax.com/rocinax/logo_error.svg"></img>
+      </header>
+      <div class="sorry-body">
+        <div class="sorry-message">{{.ErrorDescription}}</div>
+        <table class="sorry-detail">
+          <tbody>
+            <tr class="sorry-detail-header"><td>Status</td></tr>
+            <tr class="sorry-detail-body"><td>{{ .Status }}</td></tr>
+            <tr class="sorry-detail-header"><td>Error</td></tr>
+            <tr class="sorry-detail-body"><td>{{ .Error }}</td></tr>
+            <tr class="sorry-detail-header"><td>Description</td></tr>
+            <tr class="sorry-detail-body"><td>{{ .ErrorDescription }}</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <footer class="sorry-footer">
+        <div class="sorry-messanger">&copy; rocinax</div>
+      </footer>
+    </section>
+  </section>
+</body>
+</html>

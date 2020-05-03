@@ -1,0 +1,19 @@
+[Unit]
+Description = Rigis is light weight loadbalancer and firewall.
+
+[Service]
+# Service Start Command
+ExecStart = /opt/rocinax/rhole/bin/rholed
+
+# Service Stop Command
+ExecStop = /bin/kill -HUP $MAINPID    
+
+# Sercvice Reload Command
+ExecReload = /bin/kill -HUP $MAINPID && /opt/rocinax/rhole/bin/rholed
+
+# if process is dead ... always restart process
+Restart = always
+
+[Install]
+# multi user taget mode ... over than init3
+WantedBy = multi-user.target
