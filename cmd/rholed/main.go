@@ -7,7 +7,7 @@ import (
 	"path"
 	"strconv"
 
-	rhole "github.com/rocinax/rhole/pkg"
+	"github.com/rocinax/rhole/pkg/rhole"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/pflag"
 	"github.com/spf13/viper"

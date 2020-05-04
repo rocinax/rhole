@@ -1,7 +1,13 @@
 [Unit]
-Description = Rigis is light weight loadbalancer and firewall.
+Description = Rhole is simple web server honeypot.
 
 [Service]
+# Rhole Daemon Execute User
+User = rhole
+
+# Simple Application
+Type = simple
+
 # Service Start Command
 ExecStart = /opt/rocinax/rhole/bin/rholed
 
@@ -11,9 +17,9 @@ ExecStop = /bin/kill -HUP $MAINPID
 # Sercvice Reload Command
 ExecReload = /bin/kill -HUP $MAINPID && /opt/rocinax/rhole/bin/rholed
 
-# if process is dead ... always restart process
+# Always Restart Process
 Restart = always
 
 [Install]
-# multi user taget mode ... over than init3
+# Multi User Taget Mode ... Over Than Init3
 WantedBy = multi-user.target
