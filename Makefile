@@ -1,6 +1,6 @@
 ROOTDIR=/opt/rocinax
 APPNAME=rhole
-APPVERSION=0.0.2-alpha
+APPVERSION=0.0.3-alpha
 APPFULLNAME=$(APPNAME)-$(APPVERSION)
 
 # Go build commands

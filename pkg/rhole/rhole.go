@@ -70,18 +70,28 @@ func ResponseDummy(rw http.ResponseWriter, req *http.Request, dummy Dummy) {
 
 func (r Rhole) formatDumpLog(req *http.Request) map[string]interface{} {
 	var dump string
+	var remoteAddr string
+	var remotePort string
 
 	if r.Dump {
 		dumpByte, _ := httputil.DumpRequest(req, true)
 		dump = string(dumpByte)
 	}
 
+	if req.Header.Get("X-Forwarded-For") != "" {
+		remoteAddr = req.Header.Get("X-Forwarded-For")
+		remotePort = ""
+	} else {
+		remoteAddr = strings.Split(req.RemoteAddr, ":")[0]
+		remotePort = strings.Split(req.RemoteAddr, ":")[1]
+	}
+
 	return logrus.Fields{
 		"type":           "dump",
 		"app":            "rhole",
 		"request_id":     uuid.New().String(),
-		"remote_address": strings.Split(req.RemoteAddr, ":")[0],
-		"remote_port":    strings.Split(req.RemoteAddr, ":")[1],
+		"remote_address": remoteAddr,
+		"remote_port":    remotePort,
 		"host":           req.Host,
 		"method":         req.Method,
 		"request_uri":    req.RequestURI,
