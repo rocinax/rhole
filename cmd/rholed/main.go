@@ -42,12 +42,22 @@ func init() {
 	case ("Stdout"):
 		logrus.SetOutput(os.Stdout)
 	case ("File"):
-		logFile, err := os.Create(
-			path.Join(
-				viper.GetString("LogDir"),
-				"rhole.log",
-			),
+
+		var logFile *os.File
+		var err error
+
+		fileName := path.Join(
+			viper.GetString("LogDir"),
+			"rhole.log",
 		)
+
+		// file check
+		_, statErr := os.Stat(fileName)
+		if !os.IsNotExist(statErr) {
+			logFile, err = os.OpenFile(fileName, os.O_WRONLY|os.O_APPEND, 0644)
+		} else {
+			logFile, err = os.OpenFile(fileName, os.O_WRONLY|os.O_CREATE, 0644)
+		}
 		if err != nil {
 			panic(err)
 		}
