@@ -78,8 +78,11 @@ func (r Rhole) formatDumpLog(req *http.Request) map[string]interface{} {
 		dump = string(dumpByte)
 	}
 
-	if req.Header.Get("X-Forwarded-For") != "" {
-		remoteAddr = req.Header.Get("X-Forwarded-For")
+	if req.Header.Get("X-Read-IP") != "" {
+		remoteAddr = req.Header.Get("X-Read-IP")
+		remotePort = ""
+	} else if req.Header.Get("X-Forwarded-For") != "" {
+		remoteAddr = strings.Split(req.Header.Get("X-Forwarded-For"), ",")[0]
 		remotePort = ""
 	} else {
 		remoteAddr = strings.Split(req.RemoteAddr, ":")[0]
