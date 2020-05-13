@@ -1,6 +1,7 @@
-ROOTDIR=/opt/rocinax
-APPNAME=rhole
-APPVERSION=0.0.5-alpha
+# define application
+$(eval APPNAME := $(shell basename `pwd`))
+$(eval APPVERSION := $(shell cat VERSION))
+$(eval VERSIONCHECK := $(shell sh build/check_version_format.sh $(APPVERSION)))
 APPFULLNAME=$(APPNAME)-$(APPVERSION)
 
 # Go build commands
@@ -21,15 +22,15 @@ TEMPLATEDIR=template
 CONFIGDIR=config
 LOGDIR=logs
 INITDIR=init
-
 $(eval CMDS := $(shell find $(CMDDIR)/* -type d | sed 's/$(CMDDIR)\///'))
 
 .PHONY: all
-all: test release
+all: check release
 
-# make test ... test product
-.PHONY: test
-test:
+# make check ... check build environment
+.PHONY: check
+check:
+	$(if $(VERSIONCHECK),$(error Invalid version format))
 	$(GOTEST) -v ./...
 
 # make install ... install application
@@ -47,7 +48,7 @@ clean:
 
 # make build ... build application
 .PHONY: build
-build:
+build: check
 	mkdir -p $(BUILDWORKDIR)/$(APPFULLNAME)/$(BINARYDIR)
 	mkdir -p $(BUILDWORKDIR)/$(APPFULLNAME)/$(TEMPLATEDIR)
 	mkdir -p $(BUILDWORKDIR)/$(APPFULLNAME)/$(CONFIGDIR)
@@ -56,6 +57,7 @@ build:
 	cp -Rp $(TEMPLATEDIR) $(BUILDWORKDIR)/$(APPFULLNAME)/
 	cp -Rp $(CONFIGDIR) $(BUILDWORKDIR)/$(APPFULLNAME)/
 	cp -Rp $(INITDIR) $(BUILDWORKDIR)/$(APPFULLNAME)/
+	cp -p VERSION $(BUILDWORKDIR)/$(APPFULLNAME)/
 	$(foreach CMD,$(CMDS),CGO_ENABLED=0 GOOS=linux GOARCH=amd64 $(GOBUILD) -o $(BUILDWORKDIR)/$(APPFULLNAME)/$(BINARYDIR)/$(CMD) -v $(CMDDIR)/$(CMD)/main.go)
 	
 # release source files
